@@ -78,9 +78,15 @@ def main() -> int:
         if verification.get("ensemble_class_agreement") != 1.0:
             failures.append("Export verification did not achieve full class agreement")
 
-    runtime = DIST / "assets" / "vendor" / "onnxruntime" / "ort.min.js"
-    if not runtime.is_file():
-        failures.append("Bundled ONNX browser runtime is missing")
+    runtime_dir = DIST / "assets" / "vendor" / "onnxruntime"
+    runtime_files = {
+        "ort.wasm.min.js",
+        "ort-wasm-simd-threaded.mjs",
+        "ort-wasm-simd-threaded.wasm",
+    }
+    for filename in sorted(runtime_files):
+        if not (runtime_dir / filename).is_file():
+            failures.append(f"Bundled ONNX browser runtime is missing {filename}")
 
     if failures:
         print("Static validation failed:")

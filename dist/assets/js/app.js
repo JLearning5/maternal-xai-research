@@ -207,7 +207,10 @@ clearComparisons.addEventListener("click", () => {
 
 const start = async () => {
   try {
-    ort.env.wasm.wasmPaths = "assets/vendor/onnxruntime/";
+    ort.env.wasm.wasmPaths = new URL(
+      "assets/vendor/onnxruntime/",
+      document.baseURI,
+    ).href;
     ort.env.wasm.numThreads = 1;
     await model.load();
     setStatus("Model ready · runs on this device", "ready");
