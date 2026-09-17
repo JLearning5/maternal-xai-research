@@ -1,0 +1,189 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#0d2847" />
+    <meta name="description" content="Dataset, leakage controls, modelling pipeline, and explainability methods for the maternal XAI project." />
+    <title>Methodology · Maternal XAI Research</title>
+    <link rel="icon" href="favicon.svg" type="image/svg+xml" />
+    <link rel="stylesheet" href="assets/css/styles.css" />
+    <script defer src="assets/js/common.js"></script>
+  </head>
+  <body>
+    <a class="skip-link" href="#main">Skip to main content</a>
+    <header class="site-header">
+      <div class="header-inner">
+        <a class="brand" href="index.html" aria-label="Maternal XAI home">
+          <span class="brand-mark" aria-hidden="true">M·X</span>
+          <span class="brand-copy"><strong>MATERNAL / XAI</strong><span>Explainable risk research</span></span>
+        </a>
+        <button class="menu-button" type="button" aria-label="Toggle navigation" aria-expanded="false" data-menu-button><span></span></button>
+        <nav class="site-nav" aria-label="Primary navigation" data-site-nav>
+          <a href="index.html">Risk studio</a>
+          <a href="results.html">Results</a>
+          <a href="methodology.html" aria-current="page">Methodology</a>
+          <a href="about.html">Project profile</a>
+        </nav>
+      </div>
+    </header>
+
+    <main id="main" class="page-shell">
+      <section class="page-intro" aria-labelledby="page-title">
+        <div>
+          <p class="eyebrow">Reproducible pipeline</p>
+          <h1 id="page-title">Built to expose leakage, not hide it.</h1>
+          <p class="lede">The workflow cleans duplicate observations before splitting, isolates matching predictor profiles, fits preprocessing inside cross-validation, and evaluates each risk class separately.</p>
+        </div>
+        <span class="status-chip ready">Random seed · 42</span>
+      </section>
+
+      <section class="audit-grid" aria-label="Dataset audit summary">
+        <article class="card audit-card"><strong class="number">1,014</strong><span class="label">Original dataset rows</span></article>
+        <article class="card audit-card"><strong class="number">562</strong><span class="label">Exact duplicate rows removed</span></article>
+        <article class="card audit-card"><strong class="number">452</strong><span class="label">Rows retained for modelling</span></article>
+        <article class="card audit-card"><strong class="number">35</strong><span class="label">Predictor profiles with conflicting labels</span></article>
+      </section>
+
+      <section class="section" aria-labelledby="pipeline-title">
+        <div class="section-heading">
+          <p class="eyebrow">End-to-end workflow</p>
+          <h2 id="pipeline-title">From routine measurements to an auditable output.</h2>
+          <p>Every learned preprocessing step is fitted within the relevant training fold.</p>
+        </div>
+        <div class="pipeline" aria-label="Six-stage modelling pipeline">
+          <article class="pipeline-step"><span class="pipeline-node">01</span><h3>Audit</h3><p>Validate fields and labels</p></article>
+          <article class="pipeline-step"><span class="pipeline-node">02</span><h3>Deduplicate</h3><p>Remove exact repeated rows</p></article>
+          <article class="pipeline-step"><span class="pipeline-node">03</span><h3>Group split</h3><p>Keep matching profiles together</p></article>
+          <article class="pipeline-step"><span class="pipeline-node">04</span><h3>Engineer</h3><p>Create 20 clinical features</p></article>
+          <article class="pipeline-step"><span class="pipeline-node">05</span><h3>Compare</h3><p>Cross-validate six model families</p></article>
+          <article class="pipeline-step"><span class="pipeline-node">06</span><h3>Explain</h3><p>Audit errors and feature influence</p></article>
+        </div>
+      </section>
+
+      <section class="section results-grid" aria-label="Dataset definition and split">
+        <article class="card panel">
+          <div class="panel-title">
+            <div>
+              <h2>Dataset</h2>
+              <p>Maternal Health Risk Data collected through IoT-based monitoring across hospitals, community clinics, and maternal-care facilities.</p>
+            </div>
+          </div>
+          <div class="data-table-wrap">
+            <table class="data-table">
+              <thead><tr><th>Field</th><th>Meaning</th><th>Observed range</th></tr></thead>
+              <tbody>
+                <tr><td>Age</td><td>Maternal age during pregnancy</td><td>10–70 years</td></tr>
+                <tr><td>SystolicBP</td><td>Upper blood-pressure value</td><td>70–160 mmHg</td></tr>
+                <tr><td>DiastolicBP</td><td>Lower blood-pressure value</td><td>49–100 mmHg</td></tr>
+                <tr><td>BS</td><td>Blood glucose concentration</td><td>6–19 mmol/L</td></tr>
+                <tr><td>BodyTemp</td><td>Body temperature</td><td>98–103 °F</td></tr>
+                <tr><td>HeartRate</td><td>Resting heart rate</td><td>60–90 bpm</td></tr>
+                <tr><td>RiskLevel</td><td>Target class</td><td>Low / mid / high</td></tr>
+              </tbody>
+            </table>
+          </div>
+          <p style="margin:1rem 0 0;color:var(--ink-soft);font-size:.82rem">
+            Source: <a class="source-link" href="https://www.kaggle.com/datasets/csafrit2/maternal-health-risk-data/data" target="_blank" rel="noopener">Maternal Health Risk Data on Kaggle</a>.
+          </p>
+        </article>
+
+        <article class="card panel">
+          <div class="panel-title">
+            <div>
+              <h2>Profile-isolated split</h2>
+              <p>Repeated predictor combinations were assigned to the same partition to reduce optimistic leakage.</p>
+            </div>
+          </div>
+          <div class="bar-chart" aria-label="Development and holdout distribution">
+            <div class="bar-row highlight"><span>Development</span><span class="bar-track"><span class="bar-fill" style="--value:79.4%"></span></span><span class="bar-value">359</span></div>
+            <div class="bar-row"><span>Holdout</span><span class="bar-track"><span class="bar-fill" style="--value:20.6%"></span></span><span class="bar-value">93</span></div>
+          </div>
+          <div class="class-recall" style="margin-top:2rem">
+            <div class="recall-card"><span>Low risk</span><strong>234</strong></div>
+            <div class="recall-card"><span>Mid risk</span><strong>106</strong></div>
+            <div class="recall-card"><span>High risk</span><strong>112</strong></div>
+          </div>
+          <div class="callout" style="margin-top:1rem">
+            <span class="callout-icon" aria-hidden="true">1</span>
+            <div><h3>Data-quality repair</h3><p>One physiologically invalid heart-rate value was set to missing and imputed inside the pipeline.</p></div>
+          </div>
+        </article>
+      </section>
+
+      <section class="section" aria-labelledby="features-title">
+        <div class="section-heading">
+          <p class="eyebrow">Feature representation</p>
+          <h2 id="features-title">Six recorded inputs become 26 modelling features.</h2>
+          <p>Deterministic interactions and threshold indicators encode clinically interpretable relationships without learning from the target.</p>
+        </div>
+        <div class="card panel">
+          <div class="panel-title"><div><h3>Raw measurements</h3><p>Values supplied directly by the dataset or the risk studio.</p></div></div>
+          <div class="feature-chips">
+            <span class="feature-chip raw">Age</span><span class="feature-chip raw">SystolicBP</span><span class="feature-chip raw">DiastolicBP</span><span class="feature-chip raw">BS</span><span class="feature-chip raw">BodyTemp</span><span class="feature-chip raw">HeartRate</span>
+          </div>
+          <div class="panel-title" style="margin-top:2rem"><div><h3>Engineered signals</h3><p>Calculated identically during training and browser inference.</p></div></div>
+          <div class="feature-chips">
+            <span class="feature-chip">Pulse pressure</span><span class="feature-chip">Mean arterial pressure</span><span class="feature-chip">BP ratio</span><span class="feature-chip">Shock index</span><span class="feature-chip">Age × glucose</span><span class="feature-chip">BP × glucose stress</span><span class="feature-chip">Glucose × heart rate</span><span class="feature-chip">Hypertension</span><span class="feature-chip">High BP</span><span class="feature-chip">Hypotension</span><span class="feature-chip">High glucose</span><span class="feature-chip">Very high glucose</span><span class="feature-chip">Fever</span><span class="feature-chip">High fever</span><span class="feature-chip">Tachycardia</span><span class="feature-chip">Bradycardia</span><span class="feature-chip">Teen pregnancy</span><span class="feature-chip">Older pregnancy</span><span class="feature-chip">Extreme age</span><span class="feature-chip">Risk signal count</span>
+          </div>
+        </div>
+      </section>
+
+      <section class="section" aria-labelledby="models-title">
+        <div class="section-heading">
+          <p class="eyebrow">Comparative modelling</p>
+          <h2 id="models-title">Six candidates, one diverse ensemble.</h2>
+          <p>The one-standard-error rule selected an ensemble of five model families using development data only.</p>
+        </div>
+        <div class="method-grid">
+          <article class="card method-card"><span class="method-icon">ET</span><h3>Extra Trees</h3><p>Randomized tree ensemble; strongest high-risk recall among candidates.</p></article>
+          <article class="card method-card"><span class="method-icon">RF</span><h3>Random Forest</h3><p>Bagged decision trees; highest holdout macro F1.</p></article>
+          <article class="card method-card"><span class="method-icon">SV</span><h3>Support Vector</h3><p>Scaled radial-basis classifier and best single development mean.</p></article>
+          <article class="card method-card"><span class="method-icon">LG</span><h3>LightGBM</h3><p>Leaf-wise gradient boosting for non-linear tabular patterns.</p></article>
+          <article class="card method-card"><span class="method-icon">XG</span><h3>XGBoost</h3><p>Regularized gradient-boosted trees with multiclass probabilities.</p></article>
+          <article class="card method-card"><span class="method-icon">CB</span><h3>CatBoost</h3><p>Ordered boosting model included for algorithmic diversity.</p></article>
+        </div>
+      </section>
+
+      <section class="section split-list" aria-label="Validation and explainability">
+        <article class="card list-card">
+          <h3>Leakage controls</h3>
+          <ul class="clean-list">
+            <li>Exact duplicate rows removed before any split.</li>
+            <li>Identical predictor profiles kept in one split and fold.</li>
+            <li>Median imputation and scaling fitted within cross-validation.</li>
+            <li>No oversampling performed before cross-validation.</li>
+            <li>Champion selected on development folds before holdout scoring.</li>
+            <li>Legacy row-split benchmark labelled separately and explicitly.</li>
+          </ul>
+        </article>
+        <article class="card list-card">
+          <h3>Explainability and diagnostics</h3>
+          <ul class="clean-list">
+            <li>Class-wise confusion matrices expose the direction of errors.</li>
+            <li>One-vs-rest counts show sensitivity for each risk class.</li>
+            <li>Permutation importance tests dependence on each raw input.</li>
+            <li>Model-agnostic SHAP summarizes probability attribution.</li>
+            <li>Calibration curves inspect probability reliability.</li>
+            <li>Bootstrap intervals show uncertainty around key metrics.</li>
+          </ul>
+        </article>
+      </section>
+
+      <section class="section callout" aria-labelledby="deployment-title">
+        <span class="callout-icon" aria-hidden="true">↗</span>
+        <div>
+          <h3 id="deployment-title">Browser deployment</h3>
+          <p>The fitted ensemble is exported to an open model format and evaluated in the browser. This keeps hosting static and free, while the six measurements remain on the user’s device.</p>
+        </div>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <div class="footer-inner">
+        <div class="footer-copy"><strong>Explainable AI for Maternal and Child Health Outcomes</strong><span>Adesanmi Anuoluwapo Gideon · Federal University Oye-Ekiti · <span data-year></span></span></div>
+        <p class="footer-meta">Research prototype for maternal-risk classification. Child and neonatal outcomes are outside the dataset and implementation scope.</p>
+      </div>
+    </footer>
+  </body>
+</html>

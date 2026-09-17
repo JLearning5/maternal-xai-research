@@ -1,0 +1,14 @@
+{
+  "name": "maternal-xai-research",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Static research showcase and local browser inference app for maternal health risk classification.",
+  "scripts": {
+    "bundle:runtime": "node scripts/copy-runtime.mjs",
+    "check:js": "node --check dist/assets/js/common.js && node --check dist/assets/js/model.js && node --check dist/assets/js/app.js",
+    "serve": "python -m http.server 4173 --directory dist"
+  },
+  "devDependencies": {
+    "onnxruntime-web": "1.22.0"
+  }
+}

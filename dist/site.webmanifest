@@ -1,0 +1,9 @@
+{
+  "name": "Maternal XAI Research",
+  "short_name": "Maternal XAI",
+  "start_url": "./index.html",
+  "display": "standalone",
+  "background_color": "#f4f7fb",
+  "theme_color": "#0d2847",
+  "icons": []
+}

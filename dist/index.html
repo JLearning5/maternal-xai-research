@@ -1,0 +1,269 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#0d2847" />
+    <meta
+      name="description"
+      content="Interactive maternal health risk research prototype using a leakage-aware explainable AI ensemble."
+    />
+    <title>Risk Studio · Maternal XAI Research</title>
+    <link rel="icon" href="favicon.svg" type="image/svg+xml" />
+    <link rel="stylesheet" href="assets/css/styles.css" />
+    <script defer src="assets/js/common.js"></script>
+    <script defer src="assets/vendor/onnxruntime/ort.min.js"></script>
+    <script type="module" src="assets/js/app.js"></script>
+  </head>
+  <body>
+    <a class="skip-link" href="#main">Skip to main content</a>
+    <header class="site-header">
+      <div class="header-inner">
+        <a class="brand" href="index.html" aria-label="Maternal XAI home">
+          <span class="brand-mark" aria-hidden="true">M·X</span>
+          <span class="brand-copy">
+            <strong>MATERNAL / XAI</strong>
+            <span>Explainable risk research</span>
+          </span>
+        </a>
+        <button class="menu-button" type="button" aria-label="Toggle navigation" aria-expanded="false" data-menu-button>
+          <span></span>
+        </button>
+        <nav class="site-nav" aria-label="Primary navigation" data-site-nav>
+          <a href="index.html" aria-current="page">Risk studio</a>
+          <a href="results.html">Results</a>
+          <a href="methodology.html">Methodology</a>
+          <a href="about.html">Project profile</a>
+        </nav>
+      </div>
+    </header>
+
+    <main id="main" class="page-shell">
+      <section class="page-intro" aria-labelledby="page-title">
+        <div>
+          <p class="eyebrow">Interactive research prototype</p>
+          <h1 id="page-title">Test the maternal risk model.</h1>
+          <p class="lede">
+            Enter six routine maternal measurements to explore the study’s low, mid, and high-risk classification. Inference runs locally in your browser.
+          </p>
+        </div>
+        <span class="status-chip" role="status" aria-live="polite" data-model-status>Loading model…</span>
+      </section>
+
+      <section class="studio-grid" aria-label="Maternal risk testing studio">
+        <form class="card input-card" data-risk-form>
+          <div class="card-heading">
+            <div>
+              <h2>Patient measurements</h2>
+              <p>Use a sample profile or enter a new observation.</p>
+            </div>
+            <span class="step-badge">6 inputs</span>
+          </div>
+
+          <div class="profiles" aria-label="Sample profiles">
+            <button class="profile-button active" type="button" data-profile="routine">Routine profile</button>
+            <button class="profile-button" type="button" data-profile="glucose">Elevated glucose</button>
+            <button class="profile-button" type="button" data-profile="pressure">Elevated pressure</button>
+          </div>
+
+          <div class="form-grid">
+            <label class="field">
+              <span class="field-label">Age <small>training: 10–70</small></span>
+              <span class="input-wrap">
+                <input name="Age" type="number" min="10" max="70" step="1" value="25" required inputmode="numeric" />
+                <span class="unit">years</span>
+              </span>
+              <span class="field-note">Age during pregnancy</span>
+            </label>
+
+            <label class="field">
+              <span class="field-label">Systolic pressure <small>training: 70–160</small></span>
+              <span class="input-wrap">
+                <input name="SystolicBP" type="number" min="60" max="220" step="1" value="110" required inputmode="decimal" />
+                <span class="unit">mmHg</span>
+              </span>
+              <span class="field-note">Upper blood-pressure value</span>
+            </label>
+
+            <label class="field">
+              <span class="field-label">Diastolic pressure <small>training: 49–100</small></span>
+              <span class="input-wrap">
+                <input name="DiastolicBP" type="number" min="40" max="140" step="1" value="70" required inputmode="decimal" />
+                <span class="unit">mmHg</span>
+              </span>
+              <span class="field-note">Lower blood-pressure value</span>
+            </label>
+
+            <label class="field">
+              <span class="field-label">Blood glucose <small>training: 6–19</small></span>
+              <span class="input-wrap">
+                <input name="BS" type="number" min="3" max="30" step="0.01" value="7.1" required inputmode="decimal" />
+                <span class="unit">mmol/L</span>
+              </span>
+              <span class="field-note">Dataset field: BS</span>
+            </label>
+
+            <label class="field">
+              <span class="field-label">Body temperature <small>training: 98–103</small></span>
+              <span class="input-wrap">
+                <input name="BodyTemp" type="number" min="90" max="110" step="0.1" value="98" required inputmode="decimal" />
+                <span class="unit">°F</span>
+              </span>
+              <span class="field-note">Temperature in Fahrenheit</span>
+            </label>
+
+            <label class="field">
+              <span class="field-label">Heart rate <small>training: 60–90</small></span>
+              <span class="input-wrap">
+                <input name="HeartRate" type="number" min="30" max="240" step="1" value="76" required inputmode="numeric" />
+                <span class="unit">bpm</span>
+              </span>
+              <span class="field-note">Resting beats per minute</span>
+            </label>
+          </div>
+
+          <div class="form-actions">
+            <button class="button button-primary" type="submit" disabled data-submit>
+              <span class="button-icon" aria-hidden="true">↗</span>
+              <span>Loading model…</span>
+            </button>
+            <button class="button button-secondary" type="button" data-reset>Reset</button>
+            <button class="button button-secondary" type="button" hidden disabled data-compare>Compare</button>
+          </div>
+        </form>
+
+        <article class="card result-card" aria-labelledby="result-title" data-result-card>
+          <div class="result-inner">
+            <div class="result-topline">
+              <span>Ensemble output</span>
+              <span class="privacy-note">
+                <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 11V8a5 5 0 0 1 10 0v3m-8 0h6m-9 0h12v9H6z" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                Local inference
+              </span>
+            </div>
+
+            <div class="result-summary">
+              <div class="risk-ring" data-risk-ring>
+                <div class="risk-ring-copy">
+                  <strong data-confidence>—</strong>
+                  <span>confidence</span>
+                </div>
+              </div>
+              <div class="risk-copy">
+                <h2 id="result-title" data-risk-title>Ready to assess</h2>
+                <p data-risk-copy>Complete the measurements to run the research model.</p>
+              </div>
+            </div>
+
+            <div class="probability-list" aria-label="Predicted class probabilities">
+              <div class="probability-row" data-risk="low" data-probability="low">
+                <span>Low risk</span>
+                <span class="probability-track"><span class="probability-fill"></span></span>
+                <span class="probability-value">—</span>
+              </div>
+              <div class="probability-row" data-risk="mid" data-probability="mid">
+                <span>Mid risk</span>
+                <span class="probability-track"><span class="probability-fill"></span></span>
+                <span class="probability-value">—</span>
+              </div>
+              <div class="probability-row" data-risk="high" data-probability="high">
+                <span>High risk</span>
+                <span class="probability-track"><span class="probability-fill"></span></span>
+                <span class="probability-value">—</span>
+              </div>
+            </div>
+
+            <div class="explanation-box">
+              <h3>What-if influence</h3>
+              <ul class="influence-list" data-influence-list>
+                <li><span>Available after assessment</span></li>
+              </ul>
+            </div>
+
+            <p class="result-disclaimer">
+              Proof-of-concept screening output only. It is not a diagnosis, treatment recommendation, or substitute for qualified clinical assessment.
+            </p>
+          </div>
+        </article>
+      </section>
+
+      <section class="insight-strip" aria-label="Model context">
+        <article class="card insight-card">
+          <strong>74.2%</strong>
+          <span>Accuracy on the leakage-resistant 93-row holdout.</span>
+        </article>
+        <article class="card insight-card">
+          <strong>5 models</strong>
+          <span>SVC, Extra Trees, XGBoost, CatBoost, and LightGBM.</span>
+        </article>
+        <article class="card insight-card">
+          <strong>Device only</strong>
+          <span>Measurements stay in this browser and are not uploaded.</span>
+        </article>
+      </section>
+
+      <section class="card comparison-panel" hidden aria-labelledby="comparison-title" data-comparisons>
+        <div class="card-heading">
+          <div>
+            <h2 id="comparison-title">Scenario comparison</h2>
+            <p>Save up to four assessments to compare how the predicted pattern changes.</p>
+          </div>
+          <button class="profile-button" type="button" hidden data-clear-comparisons>Clear cases</button>
+        </div>
+        <div class="comparison-empty" data-comparison-empty>No saved cases yet. Run an assessment and select Compare.</div>
+        <div class="comparison-table-wrap" hidden>
+          <table class="comparison-table">
+            <thead>
+              <tr>
+                <th>Scenario</th>
+                <th>Age</th>
+                <th>BP</th>
+                <th>Glucose</th>
+                <th>Temp</th>
+                <th>Heart rate</th>
+                <th>Prediction</th>
+                <th>Confidence</th>
+              </tr>
+            </thead>
+            <tbody data-comparison-body></tbody>
+          </table>
+        </div>
+      </section>
+
+      <section class="section" aria-labelledby="interpret-title">
+        <div class="section-heading">
+          <p class="eyebrow">Read the result carefully</p>
+          <h2 id="interpret-title">Designed for exploration, with the limits visible.</h2>
+          <p>The interface keeps research performance and clinical meaning separate.</p>
+        </div>
+        <div class="method-grid">
+          <article class="card method-card">
+            <span class="method-icon" aria-hidden="true">01</span>
+            <h3>Probability, not certainty</h3>
+            <p>The largest of three averaged model probabilities determines the displayed class.</p>
+          </article>
+          <article class="card method-card">
+            <span class="method-icon" aria-hidden="true">02</span>
+            <h3>Local what-if view</h3>
+            <p>Influence shows how confidence changes when one input is replaced by its dataset median; it is not causal.</p>
+          </article>
+          <article class="card method-card">
+            <span class="method-icon" aria-hidden="true">03</span>
+            <h3>Mid-risk caution</h3>
+            <p>The champion recalled only 15.8% of mid-risk holdout cases, so intermediate patterns need particular caution.</p>
+          </article>
+        </div>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <div class="footer-inner">
+        <div class="footer-copy">
+          <strong>Explainable AI for Maternal and Child Health Outcomes</strong>
+          <span>Adesanmi Anuoluwapo Gideon · Federal University Oye-Ekiti · <span data-year></span></span>
+        </div>
+        <p class="footer-meta">Research prototype for maternal-risk classification. Child and neonatal outcomes are outside the dataset and implementation scope.</p>
+      </div>
+    </footer>
+  </body>
+</html>

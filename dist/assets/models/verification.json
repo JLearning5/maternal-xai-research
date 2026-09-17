@@ -1,0 +1,33 @@
+{
+  "source_artifact": "deployment_inference_pipeline.joblib",
+  "sample_rows": 40,
+  "members": {
+    "svc": {
+      "max_probability_error": 2.577367028688826e-07,
+      "class_agreement": 1.0,
+      "size_bytes": 53743
+    },
+    "extra_trees": {
+      "max_probability_error": 3.686803919267234e-06,
+      "class_agreement": 1.0,
+      "size_bytes": 2332223
+    },
+    "xgboost": {
+      "max_probability_error": 2.384185791015625e-07,
+      "class_agreement": 1.0,
+      "size_bytes": 359340
+    },
+    "catboost": {
+      "max_probability_error": 2.234948605073228e-07,
+      "class_agreement": 1.0,
+      "size_bytes": 331011
+    },
+    "lightgbm": {
+      "max_probability_error": 2.3438746105108876e-07,
+      "class_agreement": 1.0,
+      "size_bytes": 283096
+    }
+  },
+  "ensemble_max_probability_error": 7.538876081181201e-07,
+  "ensemble_class_agreement": 1.0
+}

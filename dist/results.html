@@ -1,0 +1,208 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#0d2847" />
+    <meta name="description" content="Evaluation results for the leakage-aware explainable maternal risk ensemble." />
+    <title>Results · Maternal XAI Research</title>
+    <link rel="icon" href="favicon.svg" type="image/svg+xml" />
+    <link rel="stylesheet" href="assets/css/styles.css" />
+    <script defer src="assets/js/common.js"></script>
+  </head>
+  <body>
+    <a class="skip-link" href="#main">Skip to main content</a>
+    <header class="site-header">
+      <div class="header-inner">
+        <a class="brand" href="index.html" aria-label="Maternal XAI home">
+          <span class="brand-mark" aria-hidden="true">M·X</span>
+          <span class="brand-copy"><strong>MATERNAL / XAI</strong><span>Explainable risk research</span></span>
+        </a>
+        <button class="menu-button" type="button" aria-label="Toggle navigation" aria-expanded="false" data-menu-button><span></span></button>
+        <nav class="site-nav" aria-label="Primary navigation" data-site-nav>
+          <a href="index.html">Risk studio</a>
+          <a href="results.html" aria-current="page">Results</a>
+          <a href="methodology.html">Methodology</a>
+          <a href="about.html">Project profile</a>
+        </nav>
+      </div>
+    </header>
+
+    <main id="main" class="page-shell">
+      <section class="page-intro" aria-labelledby="page-title">
+        <div>
+          <p class="eyebrow">Evaluation dashboard</p>
+          <h1 id="page-title">The honest result is the useful result.</h1>
+          <p class="lede">The champion ensemble performed well on low-risk cases but struggled with the transitional mid-risk class. These results come from a profile-isolated holdout.</p>
+        </div>
+        <span class="status-chip ready">Locked holdout · 93 rows</span>
+      </section>
+
+      <section class="metric-grid" aria-label="Champion model metrics">
+        <article class="card metric-card">
+          <span class="metric-label">Accuracy</span>
+          <strong class="metric-value">74.2%</strong>
+          <span class="metric-note">69 of 93 predictions correct</span>
+        </article>
+        <article class="card metric-card">
+          <span class="metric-label">Macro F1</span>
+          <strong class="metric-value">0.600</strong>
+          <span class="metric-note">Equal weight across risk classes</span>
+        </article>
+        <article class="card metric-card">
+          <span class="metric-label">Balanced accuracy</span>
+          <strong class="metric-value">0.596</strong>
+          <span class="metric-note">Mean class recall</span>
+        </article>
+        <article class="card metric-card">
+          <span class="metric-label">Quadratic kappa</span>
+          <strong class="metric-value">0.639</strong>
+          <span class="metric-note">Ordinal agreement beyond chance</span>
+        </article>
+      </section>
+
+      <section class="section results-grid" aria-label="Model comparison and confusion matrix">
+        <article class="card panel">
+          <div class="panel-title">
+            <div>
+              <h2>Holdout accuracy by model</h2>
+              <p>The diverse ensemble was selected using development data before holdout evaluation.</p>
+            </div>
+          </div>
+          <div class="bar-chart" role="img" aria-label="Accuracy comparison across seven models">
+            <div class="bar-row highlight"><span>Ensemble</span><span class="bar-track"><span class="bar-fill" style="--value:74.19%"></span></span><span class="bar-value">74.2%</span></div>
+            <div class="bar-row"><span>Extra Trees</span><span class="bar-track"><span class="bar-fill" style="--value:73.12%"></span></span><span class="bar-value">73.1%</span></div>
+            <div class="bar-row"><span>Random Forest</span><span class="bar-track"><span class="bar-fill" style="--value:73.12%"></span></span><span class="bar-value">73.1%</span></div>
+            <div class="bar-row"><span>CatBoost</span><span class="bar-track"><span class="bar-fill" style="--value:73.12%"></span></span><span class="bar-value">73.1%</span></div>
+            <div class="bar-row"><span>XGBoost</span><span class="bar-track"><span class="bar-fill" style="--value:70.97%"></span></span><span class="bar-value">71.0%</span></div>
+            <div class="bar-row"><span>LightGBM</span><span class="bar-track"><span class="bar-fill" style="--value:70.97%"></span></span><span class="bar-value">71.0%</span></div>
+            <div class="bar-row"><span>SVC</span><span class="bar-track"><span class="bar-fill" style="--value:68.82%"></span></span><span class="bar-value">68.8%</span></div>
+          </div>
+        </article>
+
+        <article class="card panel">
+          <div class="panel-title">
+            <div>
+              <h2>Champion confusion matrix</h2>
+              <p>Rows are observed classes; columns are predicted classes.</p>
+            </div>
+          </div>
+          <div class="confusion-wrap">
+            <span class="axis-y">Observed risk</span>
+            <div class="confusion-content">
+              <div class="confusion-grid" aria-label="Confusion matrix counts">
+                <span></span><span class="confusion-label">Low</span><span class="confusion-label">Mid</span><span class="confusion-label">High</span>
+                <span class="confusion-label">Low</span><span class="confusion-cell correct"><span><strong>54</strong><small>96.4%</small></span></span><span class="confusion-cell"><span><strong>0</strong><small>0.0%</small></span></span><span class="confusion-cell"><span><strong>2</strong><small>3.6%</small></span></span>
+                <span class="confusion-label">Mid</span><span class="confusion-cell"><span><strong>14</strong><small>73.7%</small></span></span><span class="confusion-cell weak"><span><strong>3</strong><small>15.8%</small></span></span><span class="confusion-cell"><span><strong>2</strong><small>10.5%</small></span></span>
+                <span class="confusion-label">High</span><span class="confusion-cell"><span><strong>4</strong><small>22.2%</small></span></span><span class="confusion-cell"><span><strong>2</strong><small>11.1%</small></span></span><span class="confusion-cell correct"><span><strong>12</strong><small>66.7%</small></span></span>
+              </div>
+              <span class="axis-x">Predicted risk</span>
+            </div>
+          </div>
+          <div class="class-recall" aria-label="Recall by risk class">
+            <div class="recall-card"><span>Low recall</span><strong>96.4%</strong></div>
+            <div class="recall-card"><span>Mid recall</span><strong>15.8%</strong></div>
+            <div class="recall-card"><span>High recall</span><strong>66.7%</strong></div>
+          </div>
+        </article>
+      </section>
+
+      <section class="section" aria-labelledby="benchmark-title">
+        <div class="section-heading">
+          <p class="eyebrow">Two benchmarks</p>
+          <h2 id="benchmark-title">Why the lower score carries more evidence.</h2>
+          <p>The project retained a legacy benchmark for sensitivity analysis, then separated it from the leakage-resistant research result.</p>
+        </div>
+        <div class="card benchmark-compare">
+          <article class="benchmark-side verified">
+            <span class="metric-label">Profile-isolated evaluation</span>
+            <strong>74.2%</strong>
+            <p>Exact duplicates removed; identical predictor profiles kept in one split or fold. This is the reported research estimate.</p>
+          </article>
+          <div class="benchmark-divider">versus</div>
+          <article class="benchmark-side legacy">
+            <span class="metric-label">Legacy row split</span>
+            <strong>90.1%</strong>
+            <p>79.8% of test rows had a predictor profile also present in training. Useful as an audit, not as clinical or external validation.</p>
+          </article>
+        </div>
+      </section>
+
+      <section class="section results-grid" aria-label="Feature importance">
+        <article class="card panel">
+          <div class="panel-title">
+            <div>
+              <h2>Model-agnostic SHAP importance</h2>
+              <p>Mean absolute change in predicted probability, aggregated over the explanation sample.</p>
+            </div>
+          </div>
+          <div class="feature-grid">
+            <div class="feature-row"><span>Systolic BP</span><span class="feature-track"><span class="feature-fill" style="--value:100%"></span></span><span>0.083</span></div>
+            <div class="feature-row"><span>Blood glucose</span><span class="feature-track"><span class="feature-fill" style="--value:93.6%"></span></span><span>0.078</span></div>
+            <div class="feature-row"><span>Body temp</span><span class="feature-track"><span class="feature-fill" style="--value:62.3%"></span></span><span>0.052</span></div>
+            <div class="feature-row"><span>Diastolic BP</span><span class="feature-track"><span class="feature-fill" style="--value:24%"></span></span><span>0.020</span></div>
+            <div class="feature-row"><span>Heart rate</span><span class="feature-track"><span class="feature-fill" style="--value:17.1%"></span></span><span>0.014</span></div>
+            <div class="feature-row"><span>Age</span><span class="feature-track"><span class="feature-fill" style="--value:16.6%"></span></span><span>0.014</span></div>
+          </div>
+        </article>
+
+        <article class="card panel">
+          <div class="panel-title">
+            <div>
+              <h2>Permutation importance</h2>
+              <p>Average decrease in holdout accuracy after shuffling each raw input.</p>
+            </div>
+          </div>
+          <div class="bar-chart">
+            <div class="bar-row highlight"><span>Blood glucose</span><span class="bar-track"><span class="bar-fill" style="--value:100%"></span></span><span class="bar-value">0.137</span></div>
+            <div class="bar-row"><span>Body temp</span><span class="bar-track"><span class="bar-fill" style="--value:51.2%"></span></span><span class="bar-value">0.070</span></div>
+            <div class="bar-row"><span>Systolic BP</span><span class="bar-track"><span class="bar-fill" style="--value:45.2%"></span></span><span class="bar-value">0.062</span></div>
+            <div class="bar-row"><span>Diastolic BP</span><span class="bar-track"><span class="bar-fill" style="--value:25.1%"></span></span><span class="bar-value">0.034</span></div>
+            <div class="bar-row"><span>Age</span><span class="bar-track"><span class="bar-fill" style="--value:11%"></span></span><span class="bar-value">0.015</span></div>
+            <div class="bar-row"><span>Heart rate</span><span class="bar-track"><span class="bar-fill" style="--value:4.2%"></span></span><span class="bar-value">0.006</span></div>
+          </div>
+        </article>
+      </section>
+
+      <section class="section" aria-labelledby="table-title">
+        <div class="card panel">
+          <div class="panel-title">
+            <div>
+              <h2 id="table-title">Complete model comparison</h2>
+              <p>No candidate dominated every criterion. Random Forest led macro F1; Extra Trees led balanced accuracy and high-risk recall.</p>
+            </div>
+          </div>
+          <div class="data-table-wrap">
+            <table class="data-table">
+              <thead><tr><th>Model</th><th>Accuracy</th><th>Balanced accuracy</th><th>Macro F1</th><th>QWK</th><th>Mid recall</th><th>High recall</th></tr></thead>
+              <tbody>
+                <tr><td><strong>Diverse ensemble</strong></td><td>74.19%</td><td>0.5963</td><td>0.5999</td><td>0.6387</td><td>0.1579</td><td>0.6667</td></tr>
+                <tr><td>Extra Trees</td><td>73.12%</td><td><strong>0.6145</strong></td><td>0.6014</td><td>0.6157</td><td>0.2105</td><td><strong>0.7222</strong></td></tr>
+                <tr><td>Random Forest</td><td>73.12%</td><td>0.6135</td><td><strong>0.6129</strong></td><td>0.6231</td><td><strong>0.2632</strong></td><td>0.6667</td></tr>
+                <tr><td>SVC</td><td>68.82%</td><td>0.5655</td><td>0.5554</td><td>0.5531</td><td>0.2105</td><td>0.6111</td></tr>
+                <tr><td>LightGBM</td><td>70.97%</td><td>0.5775</td><td>0.5884</td><td>0.6042</td><td>0.2105</td><td>0.6111</td></tr>
+                <tr><td>XGBoost</td><td>70.97%</td><td>0.5659</td><td>0.5721</td><td>0.5798</td><td>0.1579</td><td>0.6111</td></tr>
+                <tr><td>CatBoost</td><td>73.12%</td><td>0.5797</td><td>0.5610</td><td>0.6067</td><td>0.0526</td><td>0.7222</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+
+      <section class="section callout" aria-labelledby="result-caution-title">
+        <span class="callout-icon" aria-hidden="true">!</span>
+        <div>
+          <h3 id="result-caution-title">Interpretation boundary</h3>
+          <p>These results establish an internal, reproducible proof of concept. They do not establish safety, clinical utility, external validity, or performance for child and neonatal outcomes.</p>
+        </div>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <div class="footer-inner">
+        <div class="footer-copy"><strong>Explainable AI for Maternal and Child Health Outcomes</strong><span>Adesanmi Anuoluwapo Gideon · Federal University Oye-Ekiti · <span data-year></span></span></div>
+        <p class="footer-meta">Research prototype for maternal-risk classification. Child and neonatal outcomes are outside the dataset and implementation scope.</p>
+      </div>
+    </footer>
+  </body>
+</html>

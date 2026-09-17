@@ -1,0 +1,156 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#0d2847" />
+    <meta name="description" content="Research profile, objectives, contributions, limitations, and recommendations for the maternal XAI final-year project." />
+    <title>Project Profile · Maternal XAI Research</title>
+    <link rel="icon" href="favicon.svg" type="image/svg+xml" />
+    <link rel="stylesheet" href="assets/css/styles.css" />
+    <script defer src="assets/js/common.js"></script>
+  </head>
+  <body>
+    <a class="skip-link" href="#main">Skip to main content</a>
+    <header class="site-header">
+      <div class="header-inner">
+        <a class="brand" href="index.html" aria-label="Maternal XAI home">
+          <span class="brand-mark" aria-hidden="true">M·X</span>
+          <span class="brand-copy"><strong>MATERNAL / XAI</strong><span>Explainable risk research</span></span>
+        </a>
+        <button class="menu-button" type="button" aria-label="Toggle navigation" aria-expanded="false" data-menu-button><span></span></button>
+        <nav class="site-nav" aria-label="Primary navigation" data-site-nav>
+          <a href="index.html">Risk studio</a>
+          <a href="results.html">Results</a>
+          <a href="methodology.html">Methodology</a>
+          <a href="about.html" aria-current="page">Project profile</a>
+        </nav>
+      </div>
+    </header>
+
+    <main id="main" class="page-shell">
+      <section class="page-intro" aria-labelledby="page-title">
+        <div>
+          <p class="eyebrow">Final-year research project</p>
+          <h1 id="page-title">A transparent proof of concept for maternal-risk triage.</h1>
+          <p class="lede">The project combines leakage-aware evaluation, diverse machine-learning models, and explainability to classify three maternal-risk levels from routine physiological measurements.</p>
+        </div>
+        <span class="status-chip ready">Computer Science · FUOYE</span>
+      </section>
+
+      <section class="profile-hero" aria-label="Project identity">
+        <article class="card profile-main">
+          <p class="eyebrow" style="color:#73d8cf">Research title</p>
+          <h2>Explainable AI for Maternal and Child Health Outcomes</h2>
+          <div class="identity-list">
+            <div class="identity-item"><span>Researcher</span><strong>Adesanmi Anuoluwapo Gideon</strong></div>
+            <div class="identity-item"><span>Matric number</span><strong>CSC/2022/81014</strong></div>
+            <div class="identity-item"><span>Department</span><strong>Computer Science</strong></div>
+            <div class="identity-item"><span>Supervisor</span><strong>Dr John Oloruntoba Awoyemi</strong></div>
+            <div class="identity-item"><span>Institution</span><strong>Federal University Oye-Ekiti</strong></div>
+            <div class="identity-item"><span>Study focus</span><strong>Explainable maternal-risk classification</strong></div>
+          </div>
+        </article>
+
+        <div class="profile-side">
+          <article class="card quote-card">
+            <blockquote>“To develop an XAI system for classifying maternal health risk levels and explaining the contribution of maternal health measurements.”</blockquote>
+            <cite>Research aim</cite>
+          </article>
+          <article class="card scope-card">
+            <h3>Scope boundary</h3>
+            <p>The available dataset contains maternal physiology and risk labels only. It cannot support empirical claims about child or neonatal outcomes.</p>
+          </article>
+        </div>
+      </section>
+
+      <section class="section" aria-labelledby="objectives-title">
+        <div class="section-heading">
+          <p class="eyebrow">Research objectives</p>
+          <h2 id="objectives-title">Three questions guide the implementation.</h2>
+        </div>
+        <div class="objective-list">
+          <article class="card objective-card"><h3>Design</h3><p>Design a maternal health risk classification system using explainable artificial-intelligence techniques.</p></article>
+          <article class="card objective-card"><h3>Implement</h3><p>Build the system with appropriate machine-learning models and explanations for low, mid, and high-risk classification.</p></article>
+          <article class="card objective-card"><h3>Evaluate</h3><p>Measure performance using accuracy, precision, recall, F1, and class-sensitive diagnostic metrics.</p></article>
+        </div>
+      </section>
+
+      <section class="section results-grid" aria-label="Contribution to knowledge">
+        <article class="card panel">
+          <div class="panel-title"><div><h2>Contribution to knowledge</h2><p>The work connects model performance with the conditions under which that performance was measured.</p></div></div>
+          <ul class="clean-list">
+            <li>Integrates leak detection, preprocessing, model comparison, ensemble selection, and interpretation in one auditable pipeline.</li>
+            <li>Demonstrates how duplicate profiles can inflate apparent accuracy in a small clinical dataset.</li>
+            <li>Pairs aggregate scores with class-wise confusion analysis, calibration, permutation importance, and SHAP.</li>
+            <li>Makes the weakness of mid-risk classification visible instead of allowing overall accuracy to conceal it.</li>
+            <li>States the maternal-only empirical scope despite the broader wording of the original project title.</li>
+          </ul>
+        </article>
+        <article class="card panel">
+          <div class="panel-title"><div><h2>What the prototype demonstrates</h2><p>A compact screening model can be built from measurements available during routine antenatal care.</p></div></div>
+          <ul class="clean-list">
+            <li>Six low-cost physiological inputs can drive three-class risk exploration.</li>
+            <li>Deterministic feature engineering captures pressure, glucose, temperature, and age interactions.</li>
+            <li>Algorithmic diversity can improve accuracy and ordinal agreement over individual candidates.</li>
+            <li>Global explanations identify systolic pressure, blood glucose, and temperature as influential signals.</li>
+            <li>Browser deployment can preserve privacy and eliminate paid inference infrastructure.</li>
+          </ul>
+        </article>
+      </section>
+
+      <section class="section split-list" aria-label="Limitations and recommendations">
+        <article class="card list-card limitations">
+          <h3>Study limitations</h3>
+          <ul class="clean-list">
+            <li>The deduplicated dataset contains only 452 observations.</li>
+            <li>Thirty-five predictor profiles carry conflicting target labels.</li>
+            <li>The holdout remains internal rather than an independent external cohort.</li>
+            <li>No patient, institution, or collection-time identifiers were available for stronger grouping.</li>
+            <li>Mid-risk recall is low at 15.8% for the selected ensemble.</li>
+            <li>Feature-importance methods describe prediction, not causation.</li>
+            <li>The dataset has no child, neonatal, mortality, or complication outcomes.</li>
+          </ul>
+        </article>
+        <article class="card list-card">
+          <h3>Recommendations</h3>
+          <ul class="clean-list">
+            <li>Collect a larger, more heterogeneous cohort from multiple care settings.</li>
+            <li>Validate the fitted workflow on a fully external group-isolated dataset.</li>
+            <li>Improve coverage and clinical justification for the mid-risk category.</li>
+            <li>Choose thresholds and referral rules on development data before external testing.</li>
+            <li>Ask obstetric experts to assess whether model explanations are clinically plausible.</li>
+            <li>Add child-specific measurements and outcomes before extending the system’s claims.</li>
+          </ul>
+        </article>
+      </section>
+
+      <section class="section" aria-labelledby="principles-title">
+        <div class="section-heading">
+          <p class="eyebrow">Use principles</p>
+          <h2 id="principles-title">The model supports inquiry; it does not replace care.</h2>
+        </div>
+        <div class="method-grid">
+          <article class="card method-card"><span class="method-icon">P</span><h3>Private by design</h3><p>The deployed prototype runs on the visitor’s device; entered measurements are not transmitted or stored remotely.</p></article>
+          <article class="card method-card"><span class="method-icon">E</span><h3>Evidence labelled</h3><p>The robust holdout score and optimistic legacy benchmark are presented separately with their evaluation conditions.</p></article>
+          <article class="card method-card"><span class="method-icon">C</span><h3>Clinical caution</h3><p>Outputs are research classifications only and require qualified clinical interpretation, especially for mid-risk patterns.</p></article>
+        </div>
+      </section>
+
+      <section class="section callout" aria-labelledby="ethics-title">
+        <span class="callout-icon" aria-hidden="true">i</span>
+        <div>
+          <h3 id="ethics-title">Research-use notice</h3>
+          <p>This web app showcases a final-year computer-science project. It is not a medical device, has not undergone prospective clinical validation, and must not be used to diagnose, treat, or delay care.</p>
+        </div>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <div class="footer-inner">
+        <div class="footer-copy"><strong>Explainable AI for Maternal and Child Health Outcomes</strong><span>Adesanmi Anuoluwapo Gideon · Federal University Oye-Ekiti · <span data-year></span></span></div>
+        <p class="footer-meta">Research prototype for maternal-risk classification. Child and neonatal outcomes are outside the dataset and implementation scope.</p>
+      </div>
+    </footer>
+  </body>
+</html>
