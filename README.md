@@ -2,6 +2,10 @@
 
 A multipage, browser-based showcase for the final-year project **Explainable AI for Maternal and Child Health Outcomes** by Adesanmi Anuoluwapo Gideon (CSC/2022/81014), Department of Computer Science, Federal University Oye-Ekiti.
 
+## Live site
+
+Open the deployed research app at [maternal-xai-research.pages.dev](https://maternal-xai-research.pages.dev/).
+
 The app includes:
 
 - an interactive maternal-risk studio using the fitted five-model ensemble;
@@ -15,7 +19,7 @@ The leakage-resistant champion reached **74.19% accuracy** on the 93-row profile
 
 ## Privacy and hosting
 
-Model inference runs in the browser through the open-source ONNX Runtime Web library. The pinned runtime and five exported model files are bundled with the site, so assessment does not depend on a third-party API or CDN. Entered measurements remain on the visitor's device. The static site is configured for free GitHub Pages hosting and does not require a paid server.
+Model inference runs in the browser through the open-source ONNX Runtime Web library. The pinned runtime and five exported model files are bundled with the site, so assessment does not depend on a third-party API or CDN. Entered measurements remain on the visitor's device. The static site is deployed on the free Cloudflare Pages tier and does not require a paid server.
 
 ## Local preview
 
@@ -29,6 +33,16 @@ npm run bundle:runtime
 Serve the `dist` directory with any static HTTP server, for example `npm run serve`. Opening `index.html` directly from the filesystem will not load the model because browsers block local fetch requests.
 
 Run `python scripts/validate_static.py` and `npm run check:js` before deployment. The included GitHub Actions workflow publishes `dist` to GitHub Pages whenever the `main` branch changes.
+
+## Cloudflare Pages deployment
+
+After validating the app, publish the current `dist` directory with:
+
+```text
+npx wrangler@latest pages deploy dist --project-name maternal-xai-research --branch main
+```
+
+Wrangler will request Cloudflare authorization on a new computer. The production project uses Direct Upload and is served from the free `pages.dev` address above.
 
 ## Model export
 
